@@ -37,6 +37,7 @@ void viewUI()
     //win_flags |= ImGuiWindowFlags_NoTitleBar;
     //win_flags |= ImGuiWindowFlags_NoMove;
     //win_flags |= ImGuiWindowFlags_NoResize;
+    win_flags |= ImGuiWindowFlags_NoCollapse;
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(560, 320), ImGuiCond_Always);
 

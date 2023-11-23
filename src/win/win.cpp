@@ -2,6 +2,52 @@
 #include "win.h"
 #include "imgui_impl_win32.h"
 
+bool isRunAsAdmin()
+{
+    bool isRunAsAdmin = false;
+    HANDLE hToken = nullptr;
+    // 打开当前进程的访问令牌
+    if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) {
+        // 检索指定的访问令牌信息
+        TOKEN_ELEVATION elevation;
+        DWORD dwSize;
+        if (GetTokenInformation(hToken, TokenElevation, &elevation, sizeof(elevation), &dwSize)) {
+            // TokenElevation 表示此进程是否处于提升的状态，TokenIsElevated的值为1表示已提升
+            isRunAsAdmin = elevation.TokenIsElevated;
+        }
+    }
+    if (hToken) { CloseHandle(hToken); }
+    return isRunAsAdmin;
+}
+
+bool ElevateNow()
+{
+    bool isAdmin = false;
+    try { isAdmin = isRunAsAdmin(); }
+    catch (...) {
+        MessageBox(nullptr, L"", L"", NULL);
+        return false;
+    }
+
+    if (!isAdmin) {
+        WCHAR szPath[MAX_PATH];
+        if (GetModuleFileName(nullptr, szPath, ARRAYSIZE(szPath))) {
+            SHELLEXECUTEINFO sei = { sizeof(sei) };
+            sei.lpVerb = L"runas";// 操作，runas表示以管理员权限运行
+            sei.lpFile = szPath;// 要运行的程序
+            sei.hwnd = nullptr;
+            sei.nShow = SW_NORMAL;
+
+            if (!ShellExecuteEx(&sei)) {
+                MessageBox(nullptr, L"软件提升管理员权限失败，请右键属性自行勾选管理员权限。", L"错误", NULL);
+                return false;
+            }
+            exit(0);
+        }
+    }
+    return true;
+}
+
 HWND CreateApplicationWindow()
 {
     // Create application window
