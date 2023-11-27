@@ -81,6 +81,7 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
 
     // Cleanup
     viewDestroy();
+    releaseImages();
     CleanupDeviceD3D();
     UnregisterWindowClass();
     return 0;

@@ -67,6 +67,10 @@ void viewUI()
         }
     }
 
+    {
+        showImage("assets/images/test.png", 30, 30);
+    }
+
     ImGui::Text("This is view");
 
     ImGui::End();

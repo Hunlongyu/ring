@@ -1,6 +1,6 @@
 ﻿#include "helper.h"
-#include "../global/global.h"
 #include "stb_image.h"
+#include "WICTextureLoader.h"
 #include <d3d11.h>
 
 bool CreateDeviceD3D(HWND hWnd)
@@ -171,5 +171,55 @@ bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_sr
     stbi_image_free(image_data);
 
     return true;
+}
+
+ID3D11ShaderResourceView* loadImageAsTexture(const std::string& img_path)
+{
+    ID3D11ShaderResourceView* textureView = nullptr;
+
+    try
+    {
+        DirectX::CreateWICTextureFromFile(g_pd3dDevice, std::wstring(img_path.begin(), img_path.end()).c_str(), nullptr, &textureView);
+    }
+    catch (const std::exception& e)
+    {
+        // 打印错误消息或者进行其他类型的错误处理
+        std::cerr << "An error occurred: " << e.what() << '\n';
+    }
+    catch (...)
+    {
+        // 打印通用错误消息或者进行其他类型的错误处理
+        std::cerr << "An unknown error occurred while loading the texture.\n";
+    }
+
+    return textureView;
+}
+
+ID3D11ShaderResourceView* getTextureID(const std::string& img_path)
+{
+    // 检查贴图是否已经被加载
+    auto it = textures.find(img_path);
+    if (it == textures.end())
+    {
+        // 如果贴图未加载，则加载它
+        ID3D11ShaderResourceView* pTextureView = loadImageAsTexture(img_path);
+        it = textures.insert({ img_path, pTextureView }).first;
+    }
+
+    // 返回贴图对象
+    return it->second;
+}
+
+void showImage(const std::string& img_path, const float& width, const float& height)
+{
+    auto ImTextureID = getTextureID(img_path);
+    ImGui::Image(ImTextureID, ImVec2(width, height));
+}
+
+void releaseImages()
+{
+    for (auto& kv : textures) {
+        kv.second->Release();
+    }
 }
 
