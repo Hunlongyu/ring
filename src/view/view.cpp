@@ -28,14 +28,15 @@ void viewDestroy()
 void viewUI()
 {
     ImGuiWindowFlags win_flags = 0;
-    //win_flags |= ImGuiWindowFlags_NoTitleBar;
-    //win_flags |= ImGuiWindowFlags_NoMove;
-    //win_flags |= ImGuiWindowFlags_NoResize;
+    win_flags |= ImGuiWindowFlags_NoMove;
+    win_flags |= ImGuiWindowFlags_NoResize;
     win_flags |= ImGuiWindowFlags_NoCollapse;
-    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(560, 320), ImGuiCond_Always);
+    win_flags |= ImGuiWindowFlags_NoSavedSettings;
+    win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
+    ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
+    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 
-    ImGui::Begin("Home view", &show_view, win_flags);
+    ImGui::Begin("Ring", &isOpen, win_flags);
     const ImVec2 windowSize = ImGui::GetWindowSize();
 
     {

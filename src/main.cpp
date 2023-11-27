@@ -5,7 +5,7 @@
 
 int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LPSTR lpcmdline, int nCmdShow)
 {
-    HWND hwnd = CreateApplicationWindow();
+    hwnd = CreateApplicationWindow();
 
     if (!CreateDeviceD3D(hwnd))
     {
@@ -15,38 +15,21 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
     }
 
     // Show the window
-    ::ShowWindow(hwnd, SW_SHOWDEFAULT);
-    ::UpdateWindow(hwnd);
+    ShowWindow(hwnd, SW_SHOWDEFAULT);
+    UpdateWindow(hwnd);
 
     // 初始化界面 UI
     viewInit(hwnd);
 
-    // Main loop
-    bool done = false;
-    while (!done)
+    MSG msg;
+    ZeroMemory(&msg, sizeof(msg));
+    while (isOpen && msg.message != WM_QUIT)
     {
-        MSG msg;
-        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
+        if (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
         {
             TranslateMessage(&msg);
-            ::DispatchMessage(&msg);
-            if (msg.message == WM_QUIT)
-            {
-                done = true;
-            }
-        }
-        if (done)
-        {
-            break;
-        }
-
-        // Handle window resize (we don't resize directly in the WM_SIZE handler)
-        if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
-        {
-            CleanupRenderTarget();
-            g_pSwapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
-            g_ResizeWidth = g_ResizeHeight = 0;
-            CreateRenderTarget();
+            DispatchMessage(&msg);
+            continue;
         }
 
         // Start the Dear ImGui frame
@@ -55,16 +38,7 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
         ImGui::NewFrame();
 
         // views code here
-        if (show_view)
-        {
-            viewUI();
-        }
-
-        if (!show_view)
-        {
-            auto flag = !show_view;
-            ImGui::ShowDemoWindow(&flag);
-        }
+        viewUI();
 
         // Rendering
         ImGui::Render();
