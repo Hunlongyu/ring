@@ -1,11 +1,5 @@
 ﻿#include "view.h"
 
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
-#include "../global/global.h"
-#include "../helper/helper.h"
-//#include "../../resource/resource.h"
-
 void viewInit(const HWND hwnd)
 {
     IMGUI_CHECKVERSION();

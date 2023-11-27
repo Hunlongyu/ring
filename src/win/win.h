@@ -1,9 +1,7 @@
 ﻿#ifndef WIN_H
 #define WIN_H
 #pragma once
-
-#include <Windows.h>
-#include "imgui.h"
+#include "../global/global.h"
 
 // 判断是否是管理员权限启动
 bool isRunAsAdmin();

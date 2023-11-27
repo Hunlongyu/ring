@@ -1,7 +1,7 @@
 ﻿#ifndef VIEW_H
 #define VIEW_H
 #pragma once
-#include <Windows.h>
+#include "../global/global.h"
 
 void viewInit(HWND hwnd);
 

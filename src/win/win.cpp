@@ -1,6 +1,5 @@
-﻿#include "../global/global.h"
-#include "win.h"
-#include "imgui_impl_win32.h"
+﻿#include "win.h"
+
 
 bool isRunAsAdmin()
 {

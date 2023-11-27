@@ -1,10 +1,5 @@
-﻿#include <iostream>
+﻿#include "global/global.h"
 
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
-#include "global/global.h"
-#include "helper/helper.h"
-//#include "resource/resource.h"
 #include "view/view.h"
 #include "win/win.h"
 
@@ -23,7 +18,7 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
 
-    //initResource();
+    // 初始化界面 UI
     viewInit(hwnd);
 
     // Main loop
@@ -65,9 +60,10 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
             viewUI();
         }
 
-        if (show_demo)
+        if (!show_view)
         {
-            ImGui::ShowDemoWindow(&show_demo);
+            auto flag = !show_view;
+            ImGui::ShowDemoWindow(&flag);
         }
 
         // Rendering
@@ -81,7 +77,6 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
 
     // Cleanup
     viewDestroy();
-    releaseImages();
     CleanupDeviceD3D();
     UnregisterWindowClass();
     return 0;
