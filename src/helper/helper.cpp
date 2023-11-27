@@ -130,3 +130,78 @@ void releaseImages()
     }
 }
 
+bool checkAppStateByProcessName(const std::string& app)
+{
+    return false;
+}
+
+bool checkUserInputDir(const std::string& dir)
+{
+    return false;
+}
+
+std::string getDragAppDir()
+{
+    return std::string();
+}
+
+bool checkWeChatDefaultDir()
+{
+    return false;
+}
+
+bool checkWeWorkDefaultDir()
+{
+    return false;
+}
+
+bool checkQQDefaultDir()
+{
+    return false;
+}
+
+bool checkDingTalkDefaultDir()
+{
+    return false;
+}
+
+bool getWeChatDir()
+{
+    return false;
+}
+
+bool getWeWorkDir()
+{
+    return false;
+}
+
+bool getQQDir()
+{
+    return false;
+}
+
+bool getDingTalkDir()
+{
+    return false;
+}
+
+bool backupAudioFile(const std::string& file)
+{
+    return false;
+}
+
+bool restoreAudioFile(const std::string& file)
+{
+    return false;
+}
+
+bool replaceAudioFile(const std::string& file)
+{
+    return false;
+}
+
+bool replaceWeChatAudio(const std::string& file)
+{
+    return false;
+}
+

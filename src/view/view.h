@@ -7,6 +7,9 @@ void viewInit(HWND hwnd);
 
 void viewDestroy();
 
-void viewUI();
+void homeUI();
+
+// 软件初始化
+void loadingUI();
 
 #endif

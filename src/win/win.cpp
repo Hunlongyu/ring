@@ -59,11 +59,11 @@ HWND CreateApplicationWindow()
 
     const int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     const int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-    const int startX = (screenWidth - winWidth) / 2;
-    const int startY = (screenHeight - winHeight) / 2;
+    const int startX = static_cast<int>((screenWidth - winWidth) / 2);
+    const int startY = static_cast<int>((screenHeight - winHeight) / 2);
 
     const HWND hwnd = ::CreateWindowExW(WS_EX_LAYERED, L"Ring.exe", L"Ring", WS_POPUP, startX, startY,
-        winWidth, winHeight, nullptr, nullptr, wc.hInstance, nullptr);
+        static_cast<int>(winWidth), static_cast<int>(winHeight), nullptr, nullptr, wc.hInstance, nullptr);
     SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
     return hwnd;
 }

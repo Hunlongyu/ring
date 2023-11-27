@@ -1,5 +1,5 @@
-﻿#include "view.h"
-
+﻿#define IMSPINNER_DEMO
+#include "view.h"
 void viewInit(const HWND hwnd)
 {
     IMGUI_CHECKVERSION();
@@ -9,8 +9,8 @@ void viewInit(const HWND hwnd)
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
 
     // Setup Dear ImGui style
-    //ImGui::StyleColorsDark();
-    ImGui::StyleColorsLight();
+    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsLight();
 
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
@@ -25,7 +25,7 @@ void viewDestroy()
     ImGui::DestroyContext();
 }
 
-void viewUI()
+void homeUI()
 {
     ImGuiWindowFlags win_flags = 0;
     win_flags |= ImGuiWindowFlags_NoMove;
@@ -33,11 +33,10 @@ void viewUI()
     win_flags |= ImGuiWindowFlags_NoCollapse;
     win_flags |= ImGuiWindowFlags_NoSavedSettings;
     win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
-    ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(winWidth / 2, winHeight / 2), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 
-    ImGui::Begin("Ring", &isOpen, win_flags);
-    const ImVec2 windowSize = ImGui::GetWindowSize();
+    ImGui::Begin("Ring", &showHome, win_flags);
 
     {
         const char* items[] = { "AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
@@ -67,6 +66,37 @@ void viewUI()
     }
 
     ImGui::Text("This is view");
+
+    ImGui::End();
+}
+
+void loadingUI() {
+    ImGuiWindowFlags win_flags = 0;
+    win_flags |= ImGuiWindowFlags_NoMove;
+    win_flags |= ImGuiWindowFlags_NoResize;
+    win_flags |= ImGuiWindowFlags_NoCollapse;
+    win_flags |= ImGuiWindowFlags_NoSavedSettings;
+    win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
+    ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
+    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
+
+    ImGui::Begin("Loading", &showLoading, win_flags);
+
+    {
+        float center_x = winWidth / 2 - 37;
+        float center_y = winHeight / 2 - 45;
+        ImGui::SetCursorPos(ImVec2(center_x, center_y));
+        ImSpinner::SpinnerBarsScaleMiddle("SpinnerBarsScaleMiddle", 8, ImColor::HSV(++hue * 0.005f, 0.8f, 0.8f), 6, 4);
+    }
+
+    {
+        const char* cstr = loadingTxt.c_str();
+        ImVec2 textSize = ImGui::CalcTextSize(cstr);
+        float center_x = (winWidth - textSize.x) / 2;
+        float center_y = winHeight / 2 + 25;
+        ImGui::SetCursorPos(ImVec2(center_x, center_y));
+        ImGui::Text(cstr);
+    }
 
     ImGui::End();
 }

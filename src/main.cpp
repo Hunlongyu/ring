@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
 
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
-    while (isOpen && msg.message != WM_QUIT)
+    while (showHome && showLoading && msg.message != WM_QUIT)
     {
         if (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
         {
@@ -38,7 +38,8 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
         ImGui::NewFrame();
 
         // views code here
-        viewUI();
+        homeUI();
+        loadingUI();
 
         // Rendering
         ImGui::Render();

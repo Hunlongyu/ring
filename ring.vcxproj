@@ -166,6 +166,7 @@
     <ClInclude Include="includes\imgui\imgui_impl_dx11.h" />
     <ClInclude Include="includes\imgui\imgui_impl_win32.h" />
     <ClInclude Include="includes\imgui\imgui_internal.h" />
+    <ClInclude Include="includes\imgui\imspinner.h" />
     <ClInclude Include="includes\imgui\imstb_rectpack.h" />
     <ClInclude Include="includes\imgui\imstb_textedit.h" />
     <ClInclude Include="includes\imgui\imstb_truetype.h" />
