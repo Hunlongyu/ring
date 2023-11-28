@@ -1,5 +1,4 @@
-﻿#define IMSPINNER_DEMO
-#include "view.h"
+﻿#include "view.h"
 void viewInit(const HWND hwnd)
 {
     IMGUI_CHECKVERSION();
@@ -33,7 +32,7 @@ void homeUI()
     win_flags |= ImGuiWindowFlags_NoCollapse;
     win_flags |= ImGuiWindowFlags_NoSavedSettings;
     win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
-    ImGui::SetNextWindowSize(ImVec2(winWidth / 2, winHeight / 2), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 
     ImGui::Begin("Ring", &showHome, win_flags);
@@ -62,7 +61,7 @@ void homeUI()
     }
 
     {
-        showImage("assets/images/test.png", 30, 30);
+        // showImage("assets/images/test.png", 30, 30);
     }
 
     ImGui::Text("This is view");
@@ -71,31 +70,53 @@ void homeUI()
 }
 
 void loadingUI() {
+    if (!showLoading) return;
     ImGuiWindowFlags win_flags = 0;
     win_flags |= ImGuiWindowFlags_NoMove;
     win_flags |= ImGuiWindowFlags_NoResize;
+    win_flags |= ImGuiWindowFlags_NoTitleBar;
     win_flags |= ImGuiWindowFlags_NoCollapse;
     win_flags |= ImGuiWindowFlags_NoSavedSettings;
     win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
     ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
-
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 1));
     ImGui::Begin("Loading", &showLoading, win_flags);
+    ImGui::PopStyleColor();
 
+    // Loading 动画
     {
-        float center_x = winWidth / 2 - 37;
-        float center_y = winHeight / 2 - 45;
+        const float center_x = winWidth / 2 - 37;
+        const float center_y = winHeight / 2 - 45;
         ImGui::SetCursorPos(ImVec2(center_x, center_y));
         ImSpinner::SpinnerBarsScaleMiddle("SpinnerBarsScaleMiddle", 8, ImColor::HSV(++hue * 0.005f, 0.8f, 0.8f), 6, 4);
     }
 
+    // 初始化描述文字
     {
         const char* cstr = loadingTxt.c_str();
-        ImVec2 textSize = ImGui::CalcTextSize(cstr);
-        float center_x = (winWidth - textSize.x) / 2;
-        float center_y = winHeight / 2 + 25;
+        const ImVec2 textSize = ImGui::CalcTextSize(cstr);
+        const float center_x = (winWidth - textSize.x) / 2;
+        const float center_y = winHeight / 2 + 25;
         ImGui::SetCursorPos(ImVec2(center_x, center_y));
         ImGui::Text(cstr);
+    }
+
+    // 取消初始化按钮，点击后退出软件
+    {
+        ImGui::SetCursorPos(ImVec2(249, 300));
+        if (ImGui::Button("Close")) {
+            showHome = false;
+        }
+    }
+
+    {
+        static bool once{ false };
+        if (!once) {
+            once = true;
+            std::thread fnThread(checkFilesInit);
+            fnThread.detach();
+        }
     }
 
     ImGui::End();

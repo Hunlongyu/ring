@@ -1,6 +1,11 @@
 ﻿#ifndef GLOBAL_H
 #define GLOBAL_H
 #pragma once
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "DirectXTK.lib")
+#pragma comment(lib, "psapi.lib")
 
 // 系统API
 #include <windows.h>
@@ -13,6 +18,12 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
+#include <tlhelp32.h>
+#include <psapi.h>
+#include <filesystem>
+#include <chrono>
+#include <thread>
+#include <atomic>
 
 // ImGui API
 #include "imgui.h"
@@ -24,7 +35,7 @@
 #include "stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
 
-// 自定义函数
+// 自定义工具函数
 #include "../helper/helper.h"
 
 using namespace std;
@@ -38,8 +49,8 @@ extern ID3D11RenderTargetView* g_mainRenderTargetView;
 extern HWND hwnd;
 extern float winWidth;
 extern float winHeight;
-extern bool showHome;
 extern bool showLoading;
+extern bool showHome;
 extern string loadingTxt;
 extern int hue;
 // 图片资源
@@ -50,15 +61,19 @@ extern bool hasWeChat;
 extern string WeChatDir;
 extern string WeChatDLL;
 
-extern bool hasWeWork;
-extern string WeWorkDir;
-extern string WeWorkMsgAudioPath;
-extern string WeWorkCallAudioPath;
+extern bool hasWXWork;
+extern string WXWorkDir;
+extern string WXWorkMsgAudioPath;
+extern string WXWorkCallAudioPath;
 
 extern bool hasQQ;
+extern bool hasQQNT;
 extern string QQDir;
+extern string QQNTDir;
 extern string QQMsgAudioPath;
+extern string QQNTMsgAudioPath;
 extern string QQCallAudioPath;
+extern string QQNTCallAudioPath;
 
 extern bool hasDingTalk;
 extern string DingTalkDir;

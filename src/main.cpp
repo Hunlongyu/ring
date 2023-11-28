@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hCurrentInstance, HINSTANCE hPreviousInstance, LP
 
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
-    while (showHome && showLoading && msg.message != WM_QUIT)
+    while (showHome && msg.message != WM_QUIT)
     {
         if (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
         {

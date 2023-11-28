@@ -1,6 +1,5 @@
 ﻿#include "win.h"
 
-
 bool isRunAsAdmin()
 {
     bool isRunAsAdmin = false;

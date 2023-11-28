@@ -34,27 +34,32 @@ void releaseImages();
 // 检查指定进程名是否存在
 bool checkAppStateByProcessName(const std::string& app);
 // 检查用户输入的路径是否正确
-bool checkUserInputDir(const std::string& dir);
+bool checkUserInputDir(const std::string& app, std::string& dir);
 // 获取用户拖拽输入的图标路径
 std::string getDragAppDir();
+// 查找指定目录下的文件
+std::string findFile(const std::string& dir, const std::string& file);
+
+// 检查程序的默认安装路径以及进程
+void checkFilesInit();
 
 // 检查 微信 默认安装路径
 bool checkWeChatDefaultDir();
 // 检查 企业微信 默认安装路径
-bool checkWeWorkDefaultDir();
+bool checkWXWorkDefaultDir();
 // 检查 QQ 默认安装路径
 bool checkQQDefaultDir();
 // 检查 钉钉 默认安装路径
 bool checkDingTalkDefaultDir();
 
 // 获取 微信 安装目录
-bool getWeChatDir();
+void getWeChatDir(DWORD processID);
 // 获取 企业微信 安装目录
-bool getWeWorkDir();
+void getWXWorkDir(DWORD processID);
 // 获取 QQ 安装目录
-bool getQQDir();
+void getQQDir(DWORD processID);
 // 获取 钉钉 安装目录
-bool getDingTalkDir();
+void getDingTalkDir(DWORD processID);
 
 // 备份指定的文件
 bool backupAudioFile(const std::string& file);
@@ -64,4 +69,9 @@ bool restoreAudioFile(const std::string& file);
 bool replaceAudioFile(const std::string& file);
 // 微信 替换铃声
 bool replaceWeChatAudio(const std::string& file);
+
+
+// string to wstring
+std::wstring string_to_wstring(const std::string& str);
+
 #endif

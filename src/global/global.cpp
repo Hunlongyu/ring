@@ -9,8 +9,8 @@ ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 HWND hwnd = nullptr;
 float winWidth{ 540 }; // 540 1080
 float winHeight{ 360 }; // 360 720
-bool showHome{ true };
 bool showLoading{ true };
+bool showHome{ true };
 string loadingTxt = "|chu shi hua zhong|";
 int hue{ 0 };
 
@@ -22,15 +22,19 @@ bool hasWeChat{ false };
 string WeChatDir = "";
 string WeChatDLL = "";
 
-bool hasWeWork{ false };
-string WeWorkDir = "";
-string WeWorkMsgAudioPath = "";
-string WeWorkCallAudioPath = "";
+bool hasWXWork{ false };
+string WXWorkDir = "";
+string WXWorkMsgAudioPath = "";
+string WXWorkCallAudioPath = "";
 
 bool hasQQ{ false };
+bool hasQQNT{ false };
 string QQDir = "";
+string QQNTDir = "";
 string QQMsgAudioPath = "";
+string QQNTMsgAudioPath = "";
 string QQCallAudioPath = "";
+string QQNTCallAudioPath = "";
 
 bool hasDingTalk{ false };
 string DingTalkDir = "";
