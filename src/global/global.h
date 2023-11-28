@@ -46,13 +46,16 @@ extern IDXGISwapChain* g_pSwapChain;
 extern ID3D11RenderTargetView* g_mainRenderTargetView;
 
 // 窗口管理
-extern HWND hwnd;
-extern float winWidth;
-extern float winHeight;
-extern bool showLoading;
-extern bool showHome;
-extern string loadingTxt;
-extern int hue;
+extern HWND hwnd; // 窗口句柄
+extern float winWidth; // 窗口的宽度
+extern float winHeight; // 窗口的高度
+extern bool showLoading; // 控制 loading 界面的显示隐藏
+extern bool showHome; // 控制主界面的显示隐藏
+extern int hue; // loading 动画的颜色控制值
+extern int sApp; // 用户选择的程序
+extern char* msgDir; // 程序消息的铃声路径
+extern char* callDir; // 程序来电的铃声路径
+
 // 图片资源
 extern unordered_map<string, ID3D11ShaderResourceView*> textures;
 

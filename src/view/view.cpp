@@ -14,7 +14,7 @@ void viewInit(const HWND hwnd)
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
-    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
+    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msyh.ttc", 18.0f, nullptr, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 }
 
 void viewDestroy()
@@ -34,39 +34,60 @@ void homeUI()
     win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
     ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(30, 40));
 
     ImGui::Begin("Ring", &showHome, win_flags);
 
     {
-        const char* items[] = { "AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
-        static int item_current_idx = 0;
-        ImGui::Text("Full-width:");
-        if (ImGui::BeginListBox("##listbox 2", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
-        {
-            for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-            {
-                const bool is_selected = (item_current_idx == n);
-                if (ImGui::Selectable(items[n], is_selected))
-                {
-                    item_current_idx = n;
-                }
+        ImGui::Text("选择程序");
+        ImGui::SameLine();
+        const char* items[] = { "微信", "企业微信", "QQ", "钉钉" };
+        ImGui::SetNextItemWidth(200);
+        ImGui::Combo("##sApp", &sApp, items, IM_ARRAYSIZE(items));
+    }
 
-                if (is_selected)
-                {
-                    ImGui::SetItemDefaultFocus();
-                }
-            }
-            ImGui::EndListBox();
+    {
+        ImGui::Dummy(ImVec2(0.0f, 20.0f));
+        ImGui::Text("消息铃声");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(200);
+        ImGui::InputText("##msgDir", msgDir, IM_ARRAYSIZE(msgDir), ImGuiInputTextFlags_ReadOnly);
+        ImGui::SameLine();
+        if (ImGui::Button("选择")) {
+            // TODO
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("播放")) {
+            // TODO
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("替换")) {
+            // TODO
         }
     }
 
     {
-        // showImage("assets/images/test.png", 30, 30);
+        ImGui::Dummy(ImVec2(0.0f, 20.0f));
+        ImGui::Text("来电铃声");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(200);
+        ImGui::InputText("##callDir", callDir, IM_ARRAYSIZE(callDir), ImGuiInputTextFlags_ReadOnly);
+        ImGui::SameLine();
+        if (ImGui::Button("选择")) {
+            // TODO
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("播放")) {
+            // TODO
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("替换")) {
+            // TODO
+        }
     }
 
-    ImGui::Text("This is view");
-
     ImGui::End();
+    ImGui::PopStyleVar();
 }
 
 void loadingUI() {
@@ -94,7 +115,7 @@ void loadingUI() {
 
     // 初始化描述文字
     {
-        const char* cstr = loadingTxt.c_str();
+        const char* cstr = "初始化...";
         const ImVec2 textSize = ImGui::CalcTextSize(cstr);
         const float center_x = (winWidth - textSize.x) / 2;
         const float center_y = winHeight / 2 + 25;
@@ -105,7 +126,7 @@ void loadingUI() {
     // 取消初始化按钮，点击后退出软件
     {
         ImGui::SetCursorPos(ImVec2(249, 300));
-        if (ImGui::Button("Close")) {
+        if (ImGui::Button("关闭")) {
             showHome = false;
         }
     }

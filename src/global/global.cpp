@@ -11,8 +11,10 @@ float winWidth{ 540 }; // 540 1080
 float winHeight{ 360 }; // 360 720
 bool showLoading{ true };
 bool showHome{ true };
-string loadingTxt = "|chu shi hua zhong|";
 int hue{ 0 };
+int sApp{ 0 };
+char* msgDir = new char[260](); // 程序消息的铃声路径
+char* callDir = new char[260]();
 
 // 贴图资源映射
 std::unordered_map<std::string, ID3D11ShaderResourceView*> textures = {};
