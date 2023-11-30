@@ -11,7 +11,6 @@ void viewInit(const HWND hwnd)
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
 
-    // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
     io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msyh.ttc", 18.0f, nullptr, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
@@ -34,23 +33,23 @@ void homeUI()
     win_flags |= ImGuiWindowFlags_NoScrollWithMouse;
     ImGui::SetNextWindowSize(ImVec2(winWidth, winHeight), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(30, 40));
 
     ImGui::Begin("Ring", &showHome, win_flags);
 
     {
+        ImGui::SetCursorPos(ImVec2(30, 70));
         ImGui::Text("选择程序");
         ImGui::SameLine();
         const char* items[] = { "微信", "企业微信", "QQ", "钉钉" };
-        ImGui::SetNextItemWidth(200);
+        ImGui::SetNextItemWidth(240);
         ImGui::Combo("##sApp", &sApp, items, IM_ARRAYSIZE(items));
     }
 
     {
-        ImGui::Dummy(ImVec2(0.0f, 20.0f));
+        ImGui::SetCursorPos(ImVec2(30, 120));
         ImGui::Text("消息铃声");
         ImGui::SameLine();
-        ImGui::SetNextItemWidth(200);
+        ImGui::SetNextItemWidth(240);
         ImGui::InputText("##msgDir", msgDir, IM_ARRAYSIZE(msgDir), ImGuiInputTextFlags_ReadOnly);
         ImGui::SameLine();
         if (ImGui::Button("选择")) {
@@ -64,13 +63,17 @@ void homeUI()
         if (ImGui::Button("替换")) {
             // TODO
         }
+        ImGui::SameLine();
+        if (ImGui::Button("还原")) {
+            // TODO
+        }
     }
 
     {
-        ImGui::Dummy(ImVec2(0.0f, 20.0f));
+        ImGui::SetCursorPos(ImVec2(30, 170));
         ImGui::Text("来电铃声");
         ImGui::SameLine();
-        ImGui::SetNextItemWidth(200);
+        ImGui::SetNextItemWidth(240);
         ImGui::InputText("##callDir", callDir, IM_ARRAYSIZE(callDir), ImGuiInputTextFlags_ReadOnly);
         ImGui::SameLine();
         if (ImGui::Button("选择")) {
@@ -84,10 +87,27 @@ void homeUI()
         if (ImGui::Button("替换")) {
             // TODO
         }
+        ImGui::SameLine();
+        if (ImGui::Button("还原")) {
+            // TODO
+        }
+    }
+
+    {
+        ImGui::SetCursorPos(ImVec2(30, 250));
+        TextButton("v1.0.0", 0, 1, checkUpdate);
+        ImGui::SetItemTooltip("点击检查更新");
+        ImGui::SameLine();
+        ImGui::Dummy(ImVec2(20.0f, 0.0f));
+        ImGui::SameLine();
+        TextURL("Hunlongyu", "https://github.com/Hunlongyu", 1, 1);
+        ImGui::SetItemTooltip("开发者，欢迎大家点点关注~");
+        ImGui::Dummy(ImVec2(20.0f, 0.0f));
+        TextURL("GitHub", "https://github.com/Hunlongyu/ring",1 , 1);
+        ImGui::SetItemTooltip("软件官网，动动发财的小手，帮忙点点 star ~");
     }
 
     ImGui::End();
-    ImGui::PopStyleVar();
 }
 
 void loadingUI() {
@@ -125,7 +145,7 @@ void loadingUI() {
 
     // 取消初始化按钮，点击后退出软件
     {
-        ImGui::SetCursorPos(ImVec2(249, 300));
+        ImGui::SetCursorPos(ImVec2(249, 230));
         if (ImGui::Button("关闭")) {
             showHome = false;
         }

@@ -8,8 +8,8 @@ ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 // 窗口管理
 HWND hwnd = nullptr;
 float winWidth{ 540 }; // 540 1080
-float winHeight{ 360 }; // 360 720
-bool showLoading{ true };
+float winHeight{ 300 }; // 360 720
+bool showLoading{ false };
 bool showHome{ true };
 int hue{ 0 };
 int sApp{ 0 };

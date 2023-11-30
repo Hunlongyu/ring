@@ -73,5 +73,19 @@ bool replaceWeChatAudio(const std::string& file);
 
 // string to wstring
 std::wstring string_to_wstring(const std::string& str);
+// 检查更新
+void checkUpdate();
+
+/*
+* =====================================
+* === 自定义 ImGui 小组件             ===
+* =====================================
+*/
+// 添加下划线
+void AddUnderLine(ImColor col_);
+// 文字链接
+void TextURL(const char* name_, const std::string& URL_, uint8_t SameLineBefore_, uint8_t SameLineAfter_);
+// 文字按钮
+void TextButton(const char* name_, uint8_t SameLineBefore_, uint8_t SameLineAfter_, std::function<void()> callback);
 
 #endif

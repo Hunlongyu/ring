@@ -6,9 +6,13 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "DirectXTK.lib")
 #pragma comment(lib, "psapi.lib")
+#pragma comment(lib, "libssl.lib")
+#pragma comment(lib, "libcrypto.lib")
 
 // 系统API
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <shellapi.h>
 
 // Directx11 API
 #include <d3d11.h>
@@ -34,6 +38,10 @@
 // std_image API
 #include "stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
+
+// HTTP
+#define CPPHTTPLIB_OPENSSL_SUPPORT
+#include "httplib.h"
 
 // 自定义工具函数
 #include "../helper/helper.h"

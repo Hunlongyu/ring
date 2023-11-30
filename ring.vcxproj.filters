@@ -95,5 +95,8 @@
     <ClInclude Include="includes\imgui\imspinner.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="includes\http\httplib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
